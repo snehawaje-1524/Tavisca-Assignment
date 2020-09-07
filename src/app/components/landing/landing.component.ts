@@ -23,13 +23,12 @@ export class LandingComponent implements OnInit {
   offer: Offer = new Offer();
   isDarktheme: boolean;
 
-  constructor(private router: Router, private offerService: OfferService,
-    private store: Store<AppState>
+  constructor(private store: Store<AppState>
   ) {
     this.getState = this.store.select(selectAuthState);
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.getState.subscribe((state) => {
       this.isAuthenticated = state.isAuthenticated;
       this.user = state.user;

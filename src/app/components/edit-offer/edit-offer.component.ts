@@ -20,11 +20,12 @@ export class EditOfferComponent implements OnInit {
   offerId: any;
 
   constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router,
+    // tslint:disable-next-line: align
     private offerService: OfferService, private store: Store<AppState>) {
     this.getState = this.store.select(selectAuthState);
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     // tslint:disable-next-line: prefer-const
     this.offerId = this.route.snapshot.params.offerId;
     this.offerService.getOfferById(this.offerId).subscribe((data: Offer) => {
@@ -42,7 +43,7 @@ export class EditOfferComponent implements OnInit {
       });
   }
 
-  onSubmit() {
+  onSubmit(): void {
     const payload = {
       index: this.offerId,
       newOffer: this.editForm.value,

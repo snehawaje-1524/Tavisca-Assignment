@@ -22,7 +22,7 @@ export class RegisterComponent implements OnInit {
     this.getState = this.store.select(selectAuthState);
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.getState.subscribe((state) => {
       this.errorMessage = state.errorMessage;
     });
