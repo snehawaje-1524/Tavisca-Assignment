@@ -1,13 +1,10 @@
-import { GetOffer, DeleteOffer } from './../../offer-store/actions/offer.actions';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-
-import { AppState, selectAuthState } from '../../store/app.states';
-import { LogOut } from '../../store/actions/auth.actions';
 import { Observable } from 'rxjs';
-import { Router } from '@angular/router';
-import { OfferService } from '../../services/offer.service';
 import { Offer } from 'src/app/models/offer.model';
+import { LogOut } from '../../store/actions/auth.actions';
+import { AppState, selectAuthState } from '../../store/app.states';
+import { DeleteOffer, GetOffer } from './../../offer-store/actions/offer.actions';
 
 @Component({
   selector: 'app-landing',
@@ -30,14 +27,18 @@ export class LandingComponent implements OnInit {
 
   ngOnInit(): void {
     this.getState.subscribe((state) => {
-      this.isAuthenticated = state.isAuthenticated;
-      this.user = state.user;
-      this.errorMessage = state.errorMessage;
+      if (state) {
+        this.isAuthenticated = state.isAuthenticated;
+        this.user = state.user;
+        this.errorMessage = state.errorMessage;
+      }
     });
 
     this.store.dispatch(new GetOffer());
     this.store.subscribe(data => {
-      this.offers = data.offer.offer;
+      if (data && data.offer) {
+        this.offers = data.offer.offer;
+      }
     });
   }
 

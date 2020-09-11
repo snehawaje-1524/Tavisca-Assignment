@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-
 import { User } from '../../models/user';
 import { LogIn, Register } from '../../store/actions/auth.actions';
 import { AppState, selectAuthState } from '../../store/app.states';
@@ -27,7 +26,9 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.createLoginRegister();
     this.getState.subscribe((state) => {
-      this.errorMessage = state.errorMessage;
+      if (state && state.errorMessage) {
+        this.errorMessage = state.errorMessage;
+      }
     });
     this.errorMessage = null;
     this.route.data.subscribe((params) => {
